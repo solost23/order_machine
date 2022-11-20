@@ -76,13 +76,14 @@ func (a *Action) Deal(ctx context.Context, request *order_machine.CreateOrderReq
 		begin.Rollback()
 		return nil, err
 	}
-	for _, courseId := range request.GetCourseIds() {
+	for index, courseId := range request.GetCourseIds() {
 		err = (&models.OrderCourse{
 			CreatorBase: models.CreatorBase{
 				CreatorId: uint(request.GetHeader().GetOperatorUid()),
 			},
-			OrderId:  order.ID,
-			CourseId: uint(courseId),
+			OrderId:   order.ID,
+			CourseId:  uint(courseId),
+			CourseNum: uint(request.GetCourseNums()[index]),
 		}).Insert(begin)
 		if err != nil {
 			begin.Rollback()
