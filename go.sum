@@ -350,8 +350,8 @@ github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529 h1:nn5Wsu0esKSJiIVhscUt
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
 github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
-github.com/solost23/go_interface v1.1.4 h1:HJ43S8OCFreCacatebNljK7B0+/t4ljUm8S8Hs1MSlU=
-github.com/solost23/go_interface v1.1.4/go.mod h1:gfsHxHc2SVL4r5r6JAQz+xUgKDhQa1rdVoLCC1y/bRU=
+github.com/solost23/go_interface v1.1.5 h1:JzU+i8qYwFJdDf6a17dvphLD/vSVhQzwN96d4/Pt6GE=
+github.com/solost23/go_interface v1.1.5/go.mod h1:gfsHxHc2SVL4r5r6JAQz+xUgKDhQa1rdVoLCC1y/bRU=
 github.com/spf13/afero v1.9.2 h1:j49Hj62F0n+DaZ1dDCvhABaPNSGNkt32oRFxI33IEMw=
 github.com/spf13/afero v1.9.2/go.mod h1:iUV7ddyEEZPO5gA3zD4fJt6iStLlL+Lg4m2cihcDf8Y=
 github.com/spf13/cast v1.5.0 h1:rj3WzYc11XZaIZMPKmwP96zkFEnnAmV8s6XbB2aY32w=

@@ -13,8 +13,8 @@ type Order struct {
 	RefundAmount          float64   `json:"refundAmount" comment:"应退金额"`
 	RefundAcceptTime      time.Time `json:"refundAcceptTime" comment:"退款申请时间"`
 	RefundAcceptIntroduce string    `json:"RefundAcceptIntroduce" comment:"退款申请说明"`
-	PayWay                string    `json:"payWay" comment:"支付方式"`
-	Source                uint      `json:"source" comment:"订单来源 0-app 1-web"`
+	PayWay                uint      `json:"payWay" comment:"支付方式 0-支付宝 1-微信 2-网银"`
+	Source                uint      `json:"source" comment:"订单来源 0-app 1-web 2-小程序"`
 	Evaluation            string    `json:"evaluation" comment:"用户评价"`
 }
 
