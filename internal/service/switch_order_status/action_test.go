@@ -36,7 +36,7 @@ func TestAction_Deal(t *testing.T) {
 					TraceId:     34344,
 				},
 				OrderId:    2,
-				OrderEvent: order_machine.OrderEvent_EventModify,
+				OrderEvent: order_machine.OrderEvent_EventRefundConfirm,
 			},
 			err: nil,
 		},

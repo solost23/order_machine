@@ -1,6 +1,9 @@
 package fsm
 
-import "order_machine/internal/models"
+import (
+	"gorm.io/gorm"
+	"order_machine/internal/models"
+)
 
 type Option func(*Opt)
 
@@ -9,10 +12,17 @@ type SendSMS func(mobile, content string) error
 
 // Opt 定义 Handler 所需参数
 type Opt struct {
+	Db        *gorm.DB
 	Order     *models.Order
 	CourseNum uint
 
 	HandlerSendSMS SendSMS
+}
+
+func WithDB(db *gorm.DB) Option {
+	return func(opt *Opt) {
+		opt.Db = db
+	}
 }
 
 // 设置订单信息

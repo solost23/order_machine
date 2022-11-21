@@ -37,7 +37,7 @@ func (a *Action) Deal(ctx context.Context, request *order_machine.SwitchOrderSta
 	}
 	sqlOrder.RefundAcceptIntroduce = request.GetRefundAcceptIntroduce()
 	sqlOrder.Evaluation = request.GetEvaluation()
-	orderStatus, err := orderMachine.Call(request.GetOrderEvent(), fsm.WithOrderInfo(sqlOrder))
+	orderStatus, err := orderMachine.Call(request.GetOrderEvent(), fsm.WithDB(db), fsm.WithOrderInfo(sqlOrder))
 	if err != nil {
 		return nil, err
 	}
