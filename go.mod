@@ -8,7 +8,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/hashicorp/consul/api v1.15.3
 	github.com/satori/go.uuid v1.2.0
-	github.com/solost23/go_interface v1.1.5
+	github.com/solost23/go_interface v1.1.7
 	github.com/spf13/viper v1.14.0
 	go.uber.org/zap v1.21.0
 	google.golang.org/grpc v1.50.1

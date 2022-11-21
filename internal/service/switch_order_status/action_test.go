@@ -1,4 +1,4 @@
-package create_order
+package switch_order_status
 
 import (
 	"context"
@@ -23,31 +23,29 @@ func TestAction_Deal(t *testing.T) {
 
 	type test struct {
 		ctx     context.Context
-		request *order_machine.CreateOrderRequest
+		request *order_machine.SwitchOrderStateRequest
 		err     error
 	}
 
 	tests := []test{
 		{
 			ctx: context.Background(),
-			request: &order_machine.CreateOrderRequest{
+			request: &order_machine.SwitchOrderStateRequest{
 				Header: &common.RequestHeader{
 					OperatorUid: 1,
-					TraceId:     34343,
+					TraceId:     34344,
 				},
-				CourseIds:   []uint32{1, 2},
-				CourseNums:  []uint32{10, 20},
-				OrderSource: order_machine.OrderSource_App,
+				OrderId:    2,
+				OrderEvent: order_machine.OrderEvent_EventConfirm,
 			},
 			err: nil,
 		},
 	}
-
 	for _, test := range tests {
 		reply, err := action.Deal(test.ctx, test.request)
 		if err != test.err {
 			t.Error(err)
 		}
-		fmt.Println(reply.OrderId)
+		fmt.Println(reply.OrderStatus)
 	}
 }

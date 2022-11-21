@@ -7,7 +7,7 @@ import (
 	"github.com/solost23/go_interface/gen_go/order_machine"
 	"gorm.io/gorm"
 	"order_machine/internal/service/create_order"
-	"order_machine/internal/service/switch_order_state"
+	"order_machine/internal/service/switch_order_status"
 )
 
 type OrderMachineService struct {
@@ -35,7 +35,7 @@ func (h *OrderMachineService) CreateOrder(ctx context.Context, request *order_ma
 }
 
 func (h *OrderMachineService) SwitchOrderState(ctx context.Context, request *order_machine.SwitchOrderStateRequest) (reply *order_machine.SwitchOrderStateResponse, err error) {
-	action := switch_order_state.NewActionWithCtx(ctx)
+	action := switch_order_status.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mdb)
 	action.SetkafkaProducer(h.kafkaProducer)
