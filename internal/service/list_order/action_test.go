@@ -1,9 +1,8 @@
-package switch_order_status
+package list_order
 
 import (
 	"context"
 	"fmt"
-	"github.com/solost23/go_interface/gen_go/common"
 	"github.com/solost23/go_interface/gen_go/order_machine"
 	"order_machine/configs"
 	"order_machine/internal/models"
@@ -23,31 +22,25 @@ func TestAction_Deal(t *testing.T) {
 
 	type test struct {
 		ctx     context.Context
-		request *order_machine.SwitchOrderStateRequest
+		request *order_machine.ListOrderRequest
 		err     error
 	}
 
 	tests := []test{
 		{
-			ctx: context.Background(),
-			request: &order_machine.SwitchOrderStateRequest{
-				Header: &common.RequestHeader{
-					OperatorUid: 1,
-					TraceId:     34344,
-				},
-				OrderId:    2,
-				OrderEvent: order_machine.OrderEvent_EventModify,
-			},
-			err: nil,
+			ctx:     context.Background(),
+			request: nil,
+			err:     nil,
 		},
 	}
+
 	for _, test := range tests {
 		reply, err := action.Deal(test.ctx, test.request)
-		if err != test.err {
+		if err != nil {
 			t.Error(err)
 		}
-		if reply != nil {
-			fmt.Println(reply.OrderStatus)
+		for _, record := range reply.Records {
+			fmt.Printf("id: %v, status: %v, events: %v", record.GetOrderId(), record.GetOrderStatus(), record.GetOrderEvents())
 		}
 	}
 }
