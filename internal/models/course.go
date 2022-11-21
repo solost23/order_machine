@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type Course struct {
 	CreatorBase
-	Name   string  `json:"name" comment:"课程名称"`
-	Amount float64 `json:"amount" comment:"课程金额"`
-	Stock  uint64  `json:"stock" comment:"课程存量"`
+	Name   string  `json:"name" gorm:"column:name;comment: 课程名称"`
+	Amount float64 `json:"amount" gorm:"column:amount;comment: 课程金额"`
+	Stock  uint64  `json:"stock" gorm:"column:stock;comment: 课程存量"`
 }
 
 func (t *Course) TableName() string {

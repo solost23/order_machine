@@ -7,15 +7,15 @@ import (
 
 type Order struct {
 	CreatorBase
-	Status                uint      `json:"status" comment:"订单状态 0-默认 10-已预定 20-待支付 30-已支付，待发货 40-待收货 50-待评价 60-已评价，订单已完成 70-待退款，审核中 80-退款成功 90-退款失败"`
-	EstimatedAmount       float64   `json:"estimatedAmount" comment:"预估金额"`
-	RealAmount            float64   `json:"realAmount" comment:"实际金额"`
-	RefundAmount          float64   `json:"refundAmount" comment:"应退金额"`
-	RefundAcceptTime      time.Time `json:"refundAcceptTime" comment:"退款申请时间"`
-	RefundAcceptIntroduce string    `json:"RefundAcceptIntroduce" comment:"退款申请说明"`
-	PayWay                uint      `json:"payWay" comment:"支付方式 0-支付宝 1-微信 2-网银"`
-	Source                uint      `json:"source" comment:"订单来源 0-app 1-web 2-小程序"`
-	Evaluation            string    `json:"evaluation" comment:"用户评价"`
+	Status                uint      `json:"status" gorm:"column:status;comment:订单状态 0-默认 10-已预定 20-待支付 30-已支付，待发货 40-待收货 50-待评价 60-已评价，订单已完成 70-待退款，审核中 80-退款成功 90-退款失败"`
+	EstimatedAmount       float64   `json:"estimatedAmount" gorm:"column:estimated_amount;comment: 预估金额"`
+	RealAmount            float64   `json:"realAmount" gorm:"column:real_amount;comment: 实际金额"`
+	RefundAmount          float64   `json:"refundAmount" gorm:"column:refund_amount;comment: 应退金额"`
+	RefundAcceptTime      time.Time `json:"refundAcceptTime" gorm:"column:refund_accept_time;comment: 退款申请时间"`
+	RefundAcceptIntroduce string    `json:"RefundAcceptIntroduce" gorm:"column:refund_accept_introduce;comment: 退款申请说明"`
+	PayWay                uint      `json:"payWay" gorm:"column:pay_way;comment: 支付方式 0-支付宝 1-微信 2-网银"`
+	Source                uint      `json:"source" gorm:"column:source;comment: 订单来源 0-app 1-web 2-小程序"`
+	Evaluation            string    `json:"evaluation" gorm:"column:evaluation;comment: 用户评价"`
 }
 
 func (t *Order) TableName() string {

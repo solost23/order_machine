@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type OrderCourse struct {
 	CreatorBase
-	OrderId   uint `json:"orderId" comment:"订单 ID"`
-	CourseId  uint `json:"courseId" comment:"课程 ID"`
-	CourseNum uint `json:"courseNum" comment:"课程数量"`
+	OrderId   uint `json:"orderId" gorm:"column:order_id;comment: 订单 ID"`
+	CourseId  uint `json:"courseId" gorm:"column:course_id;comment: 课程 ID"`
+	CourseNum uint `json:"courseNum" gorm:"column:course_num;comment: 课程数量"`
 }
 
 func (t *OrderCourse) TableName() string {
