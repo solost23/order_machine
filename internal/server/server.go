@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"github.com/gookit/slog"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/hashicorp/consul/api"
 	uuid "github.com/satori/go.uuid"
@@ -23,7 +24,20 @@ import (
 	"time"
 )
 
-func Run(serverConfig *configs.ServerConfig) {
+type Server struct {
+	serverConfig *configs.ServerConfig
+	// 日志句柄
+	sl *slog.SugaredLogger
+}
+
+func NewServer(serverConfig *configs.ServerConfig, sl *slog.SugaredLogger) *Server {
+	return &Server{
+		serverConfig: serverConfig,
+		sl:           sl,
+	}
+}
+
+func (s *Server) Run() {
 	server := grpc.NewServer(
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
 			interceptor.Context(),
@@ -31,13 +45,14 @@ func Run(serverConfig *configs.ServerConfig) {
 			interceptor.Logging(),
 		)))
 	// 初始化mysql redis链接
-	mdb, err := models.InitMysql(serverConfig.MySQLConfig)
+	mdb, err := models.InitMysql(s.serverConfig.MySQLConfig)
 	must(err)
-	rdb, err := cache.RedisConnFactory(serverConfig.RedisConfig, 1)
+	rdb, err := cache.RedisConnFactory(s.serverConfig.RedisConfig, 1)
 	must(err)
 	// 初始化 handler
 	err = handler.Init(handler.Config{
 		Server:       server,
+		Sl:           s.sl,
 		MysqlConnect: mdb,
 		RedisClient:  rdb,
 	})
@@ -56,7 +71,7 @@ func Run(serverConfig *configs.ServerConfig) {
 
 	// 服务注册
 	cfg := api.DefaultConfig()
-	cfg.Address = fmt.Sprintf("%s:%d", serverConfig.ConsulConfig.Host, serverConfig.ConsulConfig.Port)
+	cfg.Address = fmt.Sprintf("%s:%d", s.serverConfig.ConsulConfig.Host, s.serverConfig.ConsulConfig.Port)
 
 	client, err := api.NewClient(cfg)
 	must(err)
@@ -72,10 +87,10 @@ func Run(serverConfig *configs.ServerConfig) {
 	// 生成注册对象
 	serviceId := uuid.NewV4().String()
 	registration := new(api.AgentServiceRegistration)
-	registration.Name = serverConfig.Name
+	registration.Name = s.serverConfig.Name
 	registration.ID = serviceId
 	registration.Port = port
-	registration.Tags = strings.Split(serverConfig.Name, "_")
+	registration.Tags = strings.Split(s.serverConfig.Name, "_")
 	registration.Address = ip
 	registration.Check = check
 
@@ -84,7 +99,7 @@ func Run(serverConfig *configs.ServerConfig) {
 
 	// 启动gRPC server
 	go func() {
-		defer RecoverGRoutine("GRpc")
+		defer s.recoverGRoutine("GRpc")
 		err = server.Serve(listen)
 		if err != nil {
 			panic(err)
@@ -113,7 +128,7 @@ func Run(serverConfig *configs.ServerConfig) {
 
 }
 
-func RecoverGRoutine(qid interface{}) {
+func (*Server) recoverGRoutine(qid interface{}) {
 	if err := recover(); err != nil {
 		buf := make([]byte, 1<<16)
 		runtime.Stack(buf, true)

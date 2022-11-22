@@ -6,12 +6,14 @@ import (
 	"github.com/spf13/viper"
 	"order_machine/configs"
 	"order_machine/internal/server"
+	"order_machine/pkg/helper"
 	"os"
 	"path"
 )
 
 var (
 	WebConfigPath = "configs/conf.yml"
+	WebLogPath    = "logs"
 	version       = "__BUILD_VERSION_"
 	execDir       string
 	st, v, V      bool
@@ -33,8 +35,12 @@ func main() {
 		fmt.Println(err)
 		os.Exit(-1)
 	}
-	InitLogger()
-	server.Run(serverConfig)
+	sl, err := helper.InitLogger(execDir, WebLogPath, serverConfig.Mode)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(-1)
+	}
+	server.NewServer(serverConfig, sl).Run()
 }
 
 func InitConfig() (serverConfig *configs.ServerConfig, err error) {
@@ -49,8 +55,4 @@ func InitConfig() (serverConfig *configs.ServerConfig, err error) {
 		return nil, err
 	}
 	return serverConfig, nil
-}
-
-func InitLogger() {
-
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/solost23/go_interface/gen_go/order_machine"
 	"order_machine/configs"
 	"order_machine/internal/models"
+	"order_machine/pkg/helper"
 	"testing"
 )
 
@@ -18,8 +19,10 @@ func TestAction_Deal(t *testing.T) {
 		MaxConnLifeTime: 100,
 	}
 	mdb, _ := models.InitMysql(mysqlConf)
+	sl, _ := helper.InitLogger("../../../", "logs", "debug")
 	action := Action{}
 	action.SetMysql(mdb)
+	action.SetSl(sl)
 
 	type test struct {
 		ctx     context.Context

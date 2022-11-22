@@ -2,6 +2,7 @@ package base
 
 import (
 	"context"
+	"github.com/gookit/slog"
 
 	"gorm.io/gorm"
 
@@ -12,6 +13,7 @@ import (
 
 type Action struct {
 	ctx           context.Context
+	sl            *slog.SugaredLogger
 	mysqlConnect  *gorm.DB
 	redisClient   *redis.Client
 	kafkaProducer sarama.SyncProducer
@@ -21,6 +23,11 @@ type Action struct {
 
 func (a *Action) SetContext(ctx context.Context) {
 	a.ctx = ctx
+	return
+}
+
+func (a *Action) SetSl(sl *slog.SugaredLogger) {
+	a.sl = sl
 	return
 }
 
@@ -38,6 +45,10 @@ func (a *Action) SetMysql(mysqlConn *gorm.DB) {
 func (a *Action) SetkafkaProducer(kafkaProducer sarama.SyncProducer) {
 	a.kafkaProducer = kafkaProducer
 	return
+}
+
+func (a *Action) GetSl() *slog.SugaredLogger {
+	return a.sl
 }
 
 func (a *Action) GetTraceId() int64 {
