@@ -1,5 +1,10 @@
 # order_machine
 
+# Quick Start
+``bash
+docker-compose up -d
+``
+
 # 订单流程图
 ![订单流程图](./订单流程图.png)
 
