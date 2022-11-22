@@ -11,7 +11,10 @@ func InitLogger(execDir, webLogPath, mode string) (sl *slog.SugaredLogger, err e
 	// 检测文件夹是否存在
 	logPath := path.Join(execDir, webLogPath)
 	if !PathExists(logPath) {
-		_ = os.Mkdir(logPath, os.ModePerm)
+		err = os.Mkdir(logPath, os.ModePerm)
+		if err != nil {
+			return nil, err
+		}
 	}
 	logName := path.Join(logPath, "log")
 	file, err := os.OpenFile(logName, os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
@@ -21,10 +24,13 @@ func InitLogger(execDir, webLogPath, mode string) (sl *slog.SugaredLogger, err e
 	// debug阶段记录debug以及以上错误
 	// release阶段记录info及以上错误
 	var logLevel slog.Level
-	if mode == gin.DebugMode {
+	switch mode {
+	case gin.DebugMode:
 		logLevel = slog.DebugLevel
-	} else {
+	case gin.ReleaseMode:
 		logLevel = slog.InfoLevel
+	default:
+		logLevel = slog.TraceLevel
 	}
 	return slog.NewJSONSugared(file, logLevel), nil
 }
