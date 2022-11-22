@@ -9,7 +9,7 @@ services:
       - "8889:8888"
     volumes:
       - "/Users/ty/order_machine/configs:/configs"
-      - "/Users/ty/order_machine/logs:/logs"
+      - "/Users/ty/order_machine/logs/app0:/logs"
     depends_on:
       - mariadb0
       - redis0
@@ -23,7 +23,7 @@ services:
       - "8890:8888"
     volumes:
       - "/Users/ty/order_machine/configs:/configs"
-      - "/Users/ty/order_machine/logs:/logs"
+      - "/Users/ty/order_machine/logs/app1:/logs"
     depends_on:
       - mariadb0
       - redis0
