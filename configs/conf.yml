@@ -1,17 +1,17 @@
 name: "order_machine"
 mode: "debug"
-time_location: "Asia/Chongqing"
+time_location: "Asia/Shanghai"
 
 consul:
-  host: "127.0.0.1"
+  host: "consul0"
   port: 8500
 
 mysql:
-  dsn: "root:123@tcp(127.0.0.1:3306)/order_machine?charset=utf8mb4&parseTime=true&loc=Asia%2FChongqing"
+  dsn: "root:123@tcp(mariadb0:3306)/order_machine?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai"
   max_open_conn: 20
   max_idle_conn: 10
   max_conn_life_time: 100
 
 redis:
-  addr: "127.0.0.1:6379"
+  addr: "redis0:6379"
   password: ""

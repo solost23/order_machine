@@ -1,0 +1,73 @@
+version: "3.5"
+
+services:
+  app0:
+    build: "."
+    restart: always
+    container_name: app0
+    ports:
+      - "8889:8888"
+    volumes:
+      - "/Users/ty/order_machine/configs:/configs"
+      - "/Users/ty/order_machine/logs:/logs"
+    depends_on:
+      - mariadb0
+      - redis0
+    networks:
+      - app_net
+  app1:
+    build: "."
+    restart: always
+    container_name: app1
+    ports:
+      - "8890:8888"
+    volumes:
+      - "/Users/ty/order_machine/configs:/configs"
+      - "/Users/ty/order_machine/logs:/logs"
+    depends_on:
+      - mariadb0
+      - redis0
+    networks:
+      - app_net
+
+  mariadb0:
+    image: mariadb:10.5.5
+    container_name: mariadb0
+    restart: always
+    environment:
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "123"
+      MYSQL_ROOT_PASSWORD: "123"
+      TZ: "Asia/Shanghai"
+      # 初始化数据库
+      MYSQL_DATABASE: "order_machine"
+    ports:
+      - "3307:3306"
+    volumes:
+      - "/Users/ty/order_machine/data:/var/lib/mysql"
+      - "/Users/ty/order_machine/log:/var/log/mysql"
+      #- "/Users/ty/order_machine/conf/my.cnf:/etc/mysql/my.cnf"
+    networks:
+      - app_net
+
+  redis0:
+    image: redis:latest
+    restart: always
+    container_name: redis0
+    ports:
+      - "6380:6379"
+    networks:
+      - default
+      - app_net
+
+  consul0:
+    image: consul:latest
+    container_name: consul0
+    ports:
+      - "8501:8500"
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    external: true
