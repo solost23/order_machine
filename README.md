@@ -7,7 +7,7 @@ docker-compose up -d
 
 # 多实例部署
 ```shell
-docker-compose up --scale app=n
+docker-compose up --scale app=n app
 ```
 
 # 订单流程图

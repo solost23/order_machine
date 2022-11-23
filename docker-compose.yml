@@ -4,25 +4,11 @@ services:
   app:
     build: "."
     restart: always
-    ports:
-      - "8090-8095:8888"
+#    ports:
+#      - "9090-9095:8888"
     volumes:
       - "/Users/ty/order_machine/configs:/configs"
       - "/Users/ty/order_machine/logs:/logs"
-    depends_on:
-      - mariadb0
-      - redis0
-    networks:
-      - app_net
-  app1:
-    build: "."
-    restart: always
-    container_name: app1
-    ports:
-      - "8890:8888"
-    volumes:
-      - "/Users/ty/order_machine/configs:/configs"
-      - "/Users/ty/order_machine/logs/app1:/logs"
     depends_on:
       - mariadb0
       - redis0
