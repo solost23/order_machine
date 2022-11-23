@@ -6,7 +6,7 @@ ENV GO111MODULE=on \
     GOARCH=amd64
 
 WORKDIR /build
-COPY .. .
+COPY . .
 RUN go build -o app ./cmd/main.go
 # 下载时区文件
 RUN apk add tzdata
