@@ -5,6 +5,11 @@
 docker-compose up -d
 ```
 
+# 多实例部署
+```shell
+docker-compose up --scale app=n
+```
+
 # 订单流程图
 ![订单流程图](./订单流程图.png)
 

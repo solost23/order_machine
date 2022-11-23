@@ -1,15 +1,14 @@
 version: "3.5"
 
 services:
-  app0:
+  app:
     build: "."
     restart: always
-    container_name: app0
     ports:
-      - "8889:8888"
+      - "8090-8095:8888"
     volumes:
       - "/Users/ty/order_machine/configs:/configs"
-      - "/Users/ty/order_machine/logs/app0:/logs"
+      - "/Users/ty/order_machine/logs:/logs"
     depends_on:
       - mariadb0
       - redis0
