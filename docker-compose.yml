@@ -31,7 +31,7 @@ services:
     volumes:
       - "/Users/ty/order_machine/data:/var/lib/mysql"
       - "/Users/ty/order_machine/log:/var/log/mysql"
-      #- "/Users/ty/order_machine/conf/my.cnf:/etc/mysql/my.cnf"
+      - "/Users/ty/order_machine/conf:/etc/mysql"
     networks:
       - app_net
 
