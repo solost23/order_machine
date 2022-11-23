@@ -4,20 +4,21 @@ services:
   app:
     build: "."
     restart: always
-#    ports:
-#      - "9090-9095:8888"
+    ports:
+      - "8888:8888"
     volumes:
-      - "/Users/ty/order_machine/configs:/configs"
-      - "/Users/ty/order_machine/logs:/logs"
+      - "/Users/ty/server/order_machine/configs:/configs"
+      - "/Users/ty/server/order_machine/logs:/logs"
     depends_on:
-      - mariadb0
-      - redis0
+      - mariadb
+      - redis
+      - consul
     networks:
       - app_net
 
-  mariadb0:
+  mariadb:
     image: mariadb:10.5.5
-    container_name: mariadb0
+    container_name: mariadb
     restart: always
     environment:
       MYSQL_USER: "root"
@@ -27,29 +28,29 @@ services:
       # 初始化数据库
       MYSQL_DATABASE: "order_machine"
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - "/Users/ty/order_machine/data:/var/lib/mysql"
-      - "/Users/ty/order_machine/log:/var/log/mysql"
-      - "/Users/ty/order_machine/conf:/etc/mysql"
+      - "/Users/ty/mariadb/data:/var/lib/mysql"
+      - "/Users/ty/mariadb/log:/var/log/mysql"
+      - "/Users/ty/mariadb/conf:/etc/mysql"
     networks:
       - app_net
 
-  redis0:
+  redis:
     image: redis:latest
     restart: always
-    container_name: redis0
+    container_name: redis
     ports:
-      - "6380:6379"
+      - "6379:6379"
     networks:
       - default
       - app_net
 
-  consul0:
+  consul:
     image: consul:latest
-    container_name: consul0
+    container_name: consul
     ports:
-      - "8501:8500"
+      - "8500:8500"
     networks:
       - app_net
 
