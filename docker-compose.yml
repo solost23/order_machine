@@ -9,6 +9,8 @@ services:
     volumes:
       - "/Users/ty/server/order_machine/configs:/configs"
       - "/Users/ty/server/order_machine/logs:/logs"
+      # 挂载证书
+      - "/Users/ty/server/order_machine/certs:/etc/ssl/certs/"
     depends_on:
       - mariadb
       - redis
