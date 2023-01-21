@@ -2,7 +2,7 @@ package list_order
 
 import (
 	"context"
-	"github.com/solost23/go_interface/gen_go/order_machine"
+	"github.com/solost23/protopb/gen/go/protos/order_machine"
 	"order_machine/internal/models"
 	"order_machine/internal/service/base"
 	"order_machine/pkg/fsm"

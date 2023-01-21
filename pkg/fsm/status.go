@@ -1,6 +1,6 @@
 package fsm
 
-import "github.com/solost23/go_interface/gen_go/order_machine"
+import "github.com/solost23/protopb/gen/go/protos/order_machine"
 
 // statusText 定义订单状态文案
 var statusText = map[order_machine.OrderStatus]string{

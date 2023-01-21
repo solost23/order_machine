@@ -1,6 +1,6 @@
 package fsm
 
-import "github.com/solost23/go_interface/gen_go/order_machine"
+import "github.com/solost23/protopb/gen/go/protos/order_machine"
 
 // 定义事件对应的处理办法
 var eventHandler = map[order_machine.OrderEvent]Handler{

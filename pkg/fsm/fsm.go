@@ -3,7 +3,7 @@ package fsm
 import (
 	"errors"
 	"fmt"
-	"github.com/solost23/go_interface/gen_go/order_machine"
+	"github.com/solost23/protopb/gen/go/protos/order_machine"
 	"sync"
 )
 
