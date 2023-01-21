@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/solost23/go_interface/gen_go/order_machine"
+	"github.com/solost23/protopb/gen/go/protos/order_machine"
 	"order_machine/internal/service"
 )
 

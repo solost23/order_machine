@@ -5,7 +5,7 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis/v8"
 	"github.com/gookit/slog"
-	"github.com/solost23/go_interface/gen_go/order_machine"
+	"github.com/solost23/protopb/gen/go/protos/order_machine"
 	"gorm.io/gorm"
 	"order_machine/internal/service/create_order"
 	"order_machine/internal/service/list_order"

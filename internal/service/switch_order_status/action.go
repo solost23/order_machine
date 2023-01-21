@@ -3,7 +3,7 @@ package switch_order_status
 import (
 	"context"
 	"errors"
-	"github.com/solost23/go_interface/gen_go/order_machine"
+	"github.com/solost23/protopb/gen/go/protos/order_machine"
 	"gorm.io/gorm"
 	"order_machine/internal/models"
 	"order_machine/internal/service/base"
